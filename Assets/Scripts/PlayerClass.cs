@@ -6,7 +6,7 @@ public class PlayerClass : MonoBehaviour
 {
 
     public Rigidbody player_rigidbody;
-    public float speed = 10f;
+    public float speed = 5f;
 
     // Start is called before the first frame update
     void Start()
@@ -21,24 +21,24 @@ public class PlayerClass : MonoBehaviour
         float translation = Input.GetAxis("Vertical") * speed;
         translation *= Time.deltaTime;
 
-        if ((Input.GetKey(KeyCode.Space))||(Input.GetKey(KeyCode.W)))
+        if (Input.GetKey(KeyCode.Space))//||(Input.GetKey(KeyCode.W)))
         {
-            transform.Translate(new Vector3(0, 0, 1) * Time.deltaTime * speed);
+            transform.Translate(new Vector2(0, 1) * Time.deltaTime * speed);
         }
 
-        if (Input.GetKey(KeyCode.DownArrow)||Input.GetKey(KeyCode.S))
+        /*if (Input.GetKey(KeyCode.DownArrow)||Input.GetKey(KeyCode.S))
         {
-            transform.Translate(new Vector3(0,0,-1) * Time.deltaTime * speed);
-        }
+            transform.Translate(new Vector2(0,-1) * Time.deltaTime * speed);
+        }*/
 
         if(Input.GetKey(KeyCode.LeftArrow)||Input.GetKey(KeyCode.A))
         {
-            transform.Translate(new Vector3(-1, 0, 0) * Time.deltaTime*speed);
+            transform.Translate(new Vector2(-1, 0) * Time.deltaTime*speed);
         }
 
         if( Input.GetKey(KeyCode.RightArrow)||Input.GetKey(KeyCode.D))
         {
-            transform.Translate(new Vector3(1, 0, 0) * Time.deltaTime * speed);
+            transform.Translate(new Vector2(1, 0) * Time.deltaTime * speed);
         }    
     }
 }
