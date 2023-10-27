@@ -41,12 +41,12 @@ public class PlayerClass : MonoBehaviour
             player_rigidbody.AddForce(Vector2.up * speed, ForceMode2D.Impulse);
         }
 
-        if(Input.GetKey(KeyCode.LeftArrow)||Input.GetKey(KeyCode.A))
+        if(Input.GetKey(KeyCode.LeftArrow))
         {
             transform.Translate(new Vector2(-1, 0) * Time.deltaTime*speed);
         }
 
-        if( Input.GetKey(KeyCode.RightArrow)||Input.GetKey(KeyCode.D))
+        if( Input.GetKey(KeyCode.RightArrow))
         {
             transform.Translate(new Vector2(1, 0) * Time.deltaTime * speed);
         }
@@ -61,5 +61,10 @@ public class PlayerClass : MonoBehaviour
                 counter_Gauge -= 100;
             }
         }   
+    }
+
+    void Attack()
+    {
+
     }
 }
