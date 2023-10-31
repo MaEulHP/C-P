@@ -7,21 +7,25 @@ using UnityEngine;
 public class PlayerClass : MonoBehaviour
 {
 
-    public Rigidbody2D player_rigidbody;
-    public float speed = 5f;
-    public GameObject bottom ;
-    //public State player_State = 0;
+    Rigidbody2D rb;
+
+    float moveDir;
+    public float moveSpeed = 250f;
+    public float jumpPower = 5f;
 
     void Awake()
     {
-        player_rigidbody = GetComponent<Rigidbody2D>();
-        player_rigidbody.freezeRotation = true;
+        rb = GetComponent<Rigidbody2D>();
+        rb.freezeRotation = true;
     }
 
     public int counter_Token = 2;
     public float counter_Gauge = 0.0f;
 
-    
+    public enum PlayerState
+    {
+        
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -32,27 +36,24 @@ public class PlayerClass : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        moveDir = Input.GetAxisRaw("Horizontal");
         //Move by Key Input
-        float translation = Input.GetAxis("Vertical") * speed;
-        translation *= Time.deltaTime;
-
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            player_rigidbody.AddForce(Vector2.up * speed, ForceMode2D.Impulse);
+            rb.velocity += new Vector2(0, jumpPower);
         }
 
-        if(Input.GetKey(KeyCode.LeftArrow))
+        if (Input.GetKey(KeyCode.Z)) //Attack
         {
-            transform.Translate(new Vector2(-1, 0) * Time.deltaTime*speed);
+             
         }
-
-        if( Input.GetKey(KeyCode.RightArrow))
+        if (Input.GetKey(KeyCode.X)) //Guard
         {
-            transform.Translate(new Vector2(1, 0) * Time.deltaTime * speed);
+
         }
 
         //Counter Token and Gauge Management
-        if(counter_Gauge <= 100) {
+        if (counter_Gauge <= 100) {
             counter_Gauge += 0.01f;
         }
         else {
@@ -61,6 +62,10 @@ public class PlayerClass : MonoBehaviour
                 counter_Gauge -= 100;
             }
         }   
+    }
+    private void FixedUpdate()
+    {
+        rb.AddForce(new Vector2(moveDir * Time.fixedDeltaTime * moveSpeed, rb.velocity.y));
     }
 
     void Attack()
